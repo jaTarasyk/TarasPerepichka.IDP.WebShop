@@ -5,7 +5,8 @@ namespace TarasPerepichka.IDP.DataLayer.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<ArticleEntity> ArticleEntities { get; }
+        IRepository<ArticleEntity> Articles { get; }
+        IRepository<OrderEntity> Orders { get; }
         void Save();
     }
 }

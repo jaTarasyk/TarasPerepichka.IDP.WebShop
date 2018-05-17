@@ -1,0 +1,13 @@
+﻿@Scripts.Render("~/bundles/orders/js")
+
+@Html.Partial("~/Views/Order/_OrdersModal.cshtml")
+
+<script>
+    $(document).ready(function () {
+        Orders.SaveOrdersUrl = '@Url.Action("OrderMany", "Order")';
+        Orders.AddOrderUrl = '@Url.Action("Order", "Order")';
+        Orders.GetOrdersUrl = '@Url.Action("GetOrders", "Order")';
+        Orders.ViewModalUrl = '@Url.Action("ViewModal", "Order")';
+        Orders.Initialize();
+    });
+</script>

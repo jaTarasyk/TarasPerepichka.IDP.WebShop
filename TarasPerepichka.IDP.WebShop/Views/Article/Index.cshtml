@@ -1,18 +1,37 @@
-﻿@model IEnumerable<TarasPerepichka.IDP.WebShop.Models.ArticleModel>
-
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<div class="row">
-    <div class="col-sm-6 col-md-4 col-lg-3" data-bind="foreach: articles">
-        <div class="card">
-            <div class="card-block">
-                <h3 class="card-title" data-bind="text: Name"></h3>
-                <p class="card-text " data-bind="text: Description"></p>
-                <p class="card-text" data-bind="text: Price"></p>
+<div id="shopping_cart">
+    <div id="articles_list" class="container-fluid" data-bind="foreach: ProductsInRows">
+        <div class="row" data-bind="foreach: $data">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3 data-bind="text: Name"></h3>
+                        <p class="card-text " data-bind="text: Description"></p>
+                        <p class="card-text" data-bind="text: Price"></p>
+                        <p data-bind="visible: $root.Authenticated">
+                            <button class="btn btn-primary" role="button" data-bind="click: $root.AddProductToCart">Add item</button>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    @if (Request.IsAuthenticated)
+    {
+        @Html.Partial("~/Views/Order/_OrdersModal.cshtml")
+    }
 </div>
+@Scripts.Render("~/bundles/shoppingCart/js")
+<script>
+    $(document).ready(function () {
+        ShopVM.GetProductListUrl = '@Url.Action("GetAllArticles", "Article")';
+        ShopVM.GetShoppingCartUrl = '@Url.Action("GetOrders", "Order")';
+        ShopVM.AddProductToCartUrl = '@Url.Action("Order", "Order")';
+        ShopVM.SaveShoppingCartUrl = '@Url.Action("SaveOrders", "Order")';
+        ShopVM.Init(@Request.IsAuthenticated.ToString().ToLower());
+    });
+</script>

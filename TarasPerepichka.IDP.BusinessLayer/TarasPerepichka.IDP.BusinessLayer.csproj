@@ -32,7 +32,6 @@
   <ItemGroup>
     <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
@@ -49,16 +48,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\ServiceModule.cs" />
+    <Compile Include="Infrastructure\ValidationException.cs" />
+    <Compile Include="Interfaces\IArticleService.cs" />
+    <Compile Include="Interfaces\IOrderService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ArticleService.cs" />
+    <Compile Include="Services\OrderService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="DataTO\" />
-    <Folder Include="Infrastructure\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\TarasPerepichka.IDP.Bootstrap\TarasPerepichka.IDP.Bootstrap.csproj">
+      <Project>{bdca4c3b-f5a0-4748-960f-71e229d316d2}</Project>
+      <Name>TarasPerepichka.IDP.Bootstrap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TarasPerepichka.IDP.DataLayer\TarasPerepichka.IDP.DataLayer.csproj">
+      <Project>{2b79abf8-99c4-4647-82db-50e8b92d41a0}</Project>
+      <Name>TarasPerepichka.IDP.DataLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TarasPerepichka.IDP.ViewModel\TarasPerepichka.IDP.ViewModel.csproj">
+      <Project>{b82c425e-7599-46a9-ba59-bb42808cf474}</Project>
+      <Name>TarasPerepichka.IDP.ViewModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -47,7 +47,8 @@ namespace TarasPerepichka.IDP.WebShop
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
+                RequireUniqueEmail = true,
+                
             };
 
             // Configure validation logic for passwords

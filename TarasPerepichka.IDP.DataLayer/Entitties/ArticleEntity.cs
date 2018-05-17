@@ -1,4 +1,6 @@
-﻿namespace TarasPerepichka.IDP.DataLayer.Entitties
+﻿using System.Collections.Generic;
+
+namespace TarasPerepichka.IDP.DataLayer.Entitties
 {
     public class ArticleEntity
     {
@@ -6,5 +8,7 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+
+        ICollection<OrderEntity> Orders { get; set; }
     }
 }

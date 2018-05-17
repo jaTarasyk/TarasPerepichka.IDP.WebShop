@@ -1,0 +1,94 @@
+﻿<div class="modal fade idp-modal-center" id="orders_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header  bg-green-meadow">
+                <h3 class="modal-title bg-green-meadow bg-font-green-meadow" id="Orders_label">Your orders</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row margin-bottom-10">
+                    <div class="col-md-10 col-md-offset-1">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <h5 class="bold">Article name</h5>
+                                    </th>
+                                    <th>
+                                        <h5 class="bold">Quantity</h5>
+                                    </th>
+                                    <th>
+                                        <h5 class="bold">Description</h5>
+                                    </th>
+                                    <th>
+                                        <h5 class="bold">Price</h5>
+                                    </th>
+                                    <th>
+                                        <h5 class="bold">Summary</h5>
+                                    </th>
+                                    <th>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- ko foreach: ShoppingCart -->
+                                <tr data-bind="visible: Quantity() > 0">
+                                    <td>
+                                        <p class="" data-bind="text: Article.Name"></p>
+                                    </td>
+                                    <td>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <button class="btn btn-block" data-bind="click: removeItem"></button>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p data-bind="text: Quantity"></p>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button class="btn btn-block" data-bind="click: addItem"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p data-bind="text: Article.Desription"></p>
+                                    </td>
+                                    <td>
+                                        <p data-bind="text: Article.Price"></p>
+                                    </td>
+                                    <td>
+                                        <p data-bind="text: Summary"></p>
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn-link" data-bind="click: CartRemoveProd">Remove</a>
+                                    </td>
+                                </tr>
+                                <!-- /ko -->
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2">
+                                        <h4 class="bold">Total</h4>
+                                    </td>
+                                    <td colspan="4">
+                                        <h4 class="bold" data-bind="text: CartTotal"></h4>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-1">
+                        <button type="button" class="btn btn-block btn-lg red-thunderbird" data-dismiss="modal">Cancel</button>
+                    </div>
+                    <div class="col-md-5">
+                        <button type="button" class="btn btn-block btn-lg blue" data-bind="click: SaveShoppingCart">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

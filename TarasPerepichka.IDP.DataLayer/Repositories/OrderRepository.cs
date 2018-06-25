@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using TarasPerepichka.IDP.DataLayer.DataContext;
 using TarasPerepichka.IDP.DataLayer.Entitties;
@@ -10,45 +13,76 @@ namespace TarasPerepichka.IDP.DataLayer.Repositories
 {
     public class OrderRepository : IRepository<OrderEntity>
     {
-        private readonly ArticlesContext db;
+        private readonly string dbConnection;
 
-        public OrderRepository(ArticlesContext context)
+        public OrderRepository(string connectionstring)
         {
-            db = context;
+            dbConnection = connectionstring;
         }
 
-        public void Create(OrderEntity item)
+        public void Create(OrderEntity[] items)
         {
-            db.Orders.Add(item);
-        }
-
-        public void Delete(int id)
-        {
-            OrderEntity order = db.Orders.Find(id);
-            if (order != null)
+            using (IDbConnection connection = new SqlConnection(dbConnection))
             {
-                db.Orders.Remove(order);
+                connection.Open();
+                string sql = "INSERT INTO OrderEntities(UserRef, Quantity, ArticleId) VALUES(@UserRef, @Quantity, @ArticleId)";
+                connection.Execute(sql, items);
             }
         }
 
-        public IEnumerable<OrderEntity> Find(Func<OrderEntity, bool> predicate)
+        public void Delete(OrderEntity[] orders)
         {
-            return db.Orders.Where(predicate).ToList();
+            using (IDbConnection connection = new SqlConnection(dbConnection))
+            {
+                connection.Open();
+                string sql = "DELETE FROM OrderEntities WHERE ID = @Id";
+                connection.Execute(sql, orders);
+            }
+        }
+
+        public IEnumerable<OrderEntity> Find(string userRef, int? articleId = null)
+        {
+            using (IDbConnection connection = new SqlConnection(dbConnection))
+            {
+                connection.Open();
+                var queryArgs = new DynamicParameters();
+                queryArgs.Add("@userRef", userRef, DbType.String, ParameterDirection.Input);
+                if (articleId.HasValue)
+                {
+                    queryArgs.Add("@articleId", articleId.Value, DbType.Int32, ParameterDirection.Input);
+                }
+                return connection.Query<OrderEntity>("SP_FindUserOrders", param: queryArgs, commandType: CommandType.StoredProcedure);
+            }
         }
 
         public OrderEntity Get(int id)
         {
-            return db.Orders.Find(id);
+            using (IDbConnection connection = new SqlConnection(dbConnection))
+            {
+                connection.Open();
+                string sql = "SELECT * FROM OrderEntities WHERE Id = @orderId";
+                return connection.QuerySingleOrDefault<OrderEntity>(sql, new { orderId = id });
+            }
         }
 
         public IEnumerable<OrderEntity> GetAll()
         {
-            return db.Orders;
+            using (IDbConnection connection = new SqlConnection(dbConnection))
+            {
+                connection.Open();
+                string sql = "SELECT * FROM OrderEntities";
+                return connection.Query<OrderEntity>(sql);
+            }
         }
 
-        public void Update(OrderEntity item)
+        public void Update(OrderEntity[] items)
         {
-            db.Entry(item).State = EntityState.Modified;
+            using (IDbConnection connection = new SqlConnection(dbConnection))
+            {
+                connection.Open();
+                string sql = "UPDATE OrderEntities SET Quantity = @Quantity WHERE ID = @Id";
+                connection.Execute(sql, items);
+            }
         }
     }
 }

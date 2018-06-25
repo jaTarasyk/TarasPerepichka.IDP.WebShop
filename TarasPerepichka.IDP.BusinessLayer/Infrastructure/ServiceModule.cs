@@ -13,7 +13,7 @@ namespace TarasPerepichka.IDP.BusinessLayer.Infrastructure
         }
         public override void Load()
         {
-            Bind<IUnitOfWork>().To<EFUnitOfWork>().WithConstructorArgument(connectionString);
+            Bind<IUnitOfWork>().To<DapperUnitOfWork>().WithConstructorArgument(connectionString);
         }
     }
 }

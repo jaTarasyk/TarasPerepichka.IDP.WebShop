@@ -20,7 +20,7 @@ namespace TarasPerepichka.IDP.BusinessLayer.Services
 
         public IEnumerable<OrderVM> GetOrders(string userRef)
         {
-            var orders = dataBase.Orders.Find(o => o.UserRef == userRef).ToList();
+            var orders = dataBase.Orders.Find(userRef).ToList();
             foreach(var order in orders)
             {
                 order.Article = dataBase.Articles.Get(order.ArticleId);
@@ -31,45 +31,25 @@ namespace TarasPerepichka.IDP.BusinessLayer.Services
 
         public bool OrderItem(int articleId, string userRef)
         {
-            var existingOrders = dataBase.Orders.Find(o => o.UserRef == userRef && o.ArticleId == articleId).ToList();
-            if(existingOrders.Count == 0)
+            var existingOrders = dataBase.Orders.Find(userRef, articleId).ToArray();
+            if(existingOrders.Length == 0)
             {
-                dataBase.Orders.Create(new OrderEntity { UserRef = userRef, ArticleId = articleId, Quantity = 1 });
+                dataBase.Orders.Create(new[] { new OrderEntity { UserRef = userRef, ArticleId = articleId, Quantity = 1 } });
             }
             else
             {
                 existingOrders[0].Quantity++;
-                dataBase.Orders.Update(existingOrders[0]);                
+                dataBase.Orders.Update(existingOrders);                
             }
-            dataBase.Save();
             return true;
         }
 
         public bool SaveOrders(List<OrderVM> orders)
         {
-            foreach(var order in orders)
-            {
-                if (order.Quantity == 0)
-                {
-                    dataBase.Orders.Delete(order.Id);
-                }
-                else
-                {
-                    var orderEntity = dataBase.Orders.Get(order.Id);
-                    if (order.Quantity != orderEntity.Quantity)
-                    {
-                        orderEntity.Quantity = order.Quantity;
-                        dataBase.Orders.Update(orderEntity);
-                    }
-                }
-            }
-            dataBase.Save();
+            List<OrderEntity> ordersEM = Mapper.Map<List<OrderVM>, List<OrderEntity>>(orders);
+            dataBase.Orders.Delete(ordersEM.Where(o=>o.Quantity == 0).ToArray());
+            dataBase.Orders.Update(ordersEM.Where(o => o.Quantity > 0).ToArray());
             return true;
-        }
-
-        public void Dispose()
-        {
-            dataBase.Dispose();
         }
     }
 }

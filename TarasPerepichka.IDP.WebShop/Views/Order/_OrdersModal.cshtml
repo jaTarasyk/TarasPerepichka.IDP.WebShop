@@ -1,7 +1,7 @@
-﻿<div class="modal fade idp-modal-center" id="orders_modal" tabindex="-1" role="dialog">
+﻿<div class="modal fade" id="orders_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header  bg-green-meadow">
+            <div class="modal-header  bg-primary">
                 <h3 class="modal-title bg-green-meadow bg-font-green-meadow" id="Orders_label">Your orders</h3>
             </div>
             <div class="modal-body margin-bottom-10">
@@ -27,32 +27,28 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="class-parent">
                         <!-- ko foreach: ShoppingCart -->
-                        <tr data-bind="visible: Quantity() > 0">
-                            <td>
+                        <tr class="class-clild-1" data-bind="visible: Quantity() > 0">
+                            <td class="class-sub-child-1">
                                 <p class="" data-bind="text: Article.Name"></p>
                             </td>
                             <td>
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <button class="btn btn-block" data-bind="click: removeItem">
-                                                <span class="glyphicon glyphicon-menu-down"></span>
-                                            </button>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <p data-bind="text: Quantity"></p>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <button class="btn btn-block" data-bind="click: addItem">
-                                                <span class="glyphicon glyphicon-menu-up"></span>
-                                            </button>
-                                        </div>
-                                    </div>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-block btn-primary" data-bind="click: removeItem">
+                                            <span class="glyphicon glyphicon-menu-down"></span>
+                                        </button>
+                                    </span>
+                                    <span class="input-group-addon" data-bind="text: Quantity"></span>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-block btn-primary" data-bind="click: addItem">
+                                            <span class="glyphicon glyphicon-menu-up"></span>
+                                        </button>
+                                    </span>
                                 </div>
                             </td>
-                            <td>
+                            <td class="class-sub-child-2">
                                 <p data-bind="text: Article.Description"></p>
                             </td>
                             <td>
@@ -67,8 +63,8 @@
                         </tr>
                         <!-- /ko -->
                     </tbody>
-                    <tfoot>
-                        <tr>
+                    <tfoot class="class-parent">
+                        <tr class="class-clild-2">
                             <td colspan="2">
                                 <h3 class="bold">Total</h3>
                             </td>
@@ -82,10 +78,10 @@
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-md-5 col-md-offset-1">
-                        <button type="button" class="btn btn-block btn-lg red-thunderbird" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-block btn-lg btn-danger" data-dismiss="modal">Cancel</button>
                     </div>
                     <div class="col-md-5">
-                        <button type="button" class="btn btn-block btn-lg blue" data-bind="click: SaveShoppingCart">Save</button>
+                        <button type="button" class="btn btn-block btn-lg btn-primary" data-bind="click: SaveShoppingCart">Save</button>
                     </div>
                 </div>
             </div>

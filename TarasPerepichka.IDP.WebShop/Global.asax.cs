@@ -1,6 +1,7 @@
 ﻿using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Mvc;
+using System.Configuration;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -21,7 +22,7 @@ namespace TarasPerepichka.IDP.WebShop
 
             ApplicationMapper.Init();
             NinjectModule entityModule = new ArticleModule();
-            NinjectModule serviceModule = new ServiceModule("DefaultConnection2");
+            NinjectModule serviceModule = new ServiceModule(ConfigurationManager.ConnectionStrings["DefaultConnection2"].ConnectionString);
             var kernel = new StandardKernel(entityModule, serviceModule);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
 

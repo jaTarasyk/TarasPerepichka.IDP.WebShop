@@ -22,10 +22,5 @@ namespace TarasPerepichka.IDP.BusinessLayer.Services
             List<ArticleEntity> entities = dataBase.Articles.GetAll().ToList();
             return Mapper.Map<List<ArticleEntity>, List<ArticleVM>>(entities, opts => opts.ConfigureMap(MemberList.Destination));
         }
- 
-        public void Dispose()
-        {
-            dataBase.Dispose();
-        }
     }
 }

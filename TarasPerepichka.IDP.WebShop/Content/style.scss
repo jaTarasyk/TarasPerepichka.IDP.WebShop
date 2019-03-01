@@ -1,0 +1,43 @@
+﻿$font-stack: Calibri, sans-serif;
+$font-color: #020f78;
+$border-green: #0d3710;
+$border-red: #941306;
+$border-orange: #ff4600;
+$back-aqua: mediumaquamarine;
+
+.class-parent {
+    border: 2px dotted $border-green !important;
+
+    .class-clild-1 {
+        font: 100% $font-stack;
+        color: $font-color;
+        background-color: $back-aqua;
+
+        .class-sub-child-1 {
+            font-size: larger;
+        }
+
+        .class-sub-child-2 {
+            font-size: smaller;
+        }
+    }
+
+    .class-clild-2 {
+        border: 3px groove $border-red;
+    }
+
+    &.class-clild-1 {
+        padding-left: 20px;
+    }
+
+    &.class-clild-2 {
+        background-color: $back-aqua;
+    }
+}
+
+.class-clild-1{
+    border: 2px dashed $border-orange;
+    .class-sub-child-1{
+        font-size:medium;
+    }
+}

@@ -27,10 +27,10 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="class-parent">
+                    <tbody>
                         <!-- ko foreach: ShoppingCart -->
-                        <tr class="class-clild-1" data-bind="visible: Quantity() > 0">
-                            <td class="class-sub-child-1">
+                        <tr data-bind="visible: Quantity() > 0">
+                            <td>
                                 <p class="" data-bind="text: Article.Name"></p>
                             </td>
                             <td>
@@ -48,7 +48,7 @@
                                     </span>
                                 </div>
                             </td>
-                            <td class="class-sub-child-2">
+                            <td>
                                 <p data-bind="text: Article.Description"></p>
                             </td>
                             <td>
@@ -63,8 +63,8 @@
                         </tr>
                         <!-- /ko -->
                     </tbody>
-                    <tfoot class="class-parent">
-                        <tr class="class-clild-2">
+                    <tfoot>
+                        <tr>
                             <td colspan="2">
                                 <h3 class="bold">Total</h3>
                             </td>

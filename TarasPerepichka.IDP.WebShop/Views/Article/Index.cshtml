@@ -5,11 +5,11 @@
 <div id="shopping_cart">
     <div id="articles_list" class="container-fluid" data-bind="foreach: Products">
         <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="thumbnail class-parent">
-                <div class="caption class-clild-1">
+            <div class="thumbnail">
+                <div class="caption">
                     <h3 data-bind="text: Name"></h3>
-                    <p class="card-text class-sub-child-2" data-bind="text: Description"></p>
-                    <p class="card-text class-sub-child-1" data-bind="text: Price"></p>
+                    <p class="card-text" data-bind="text: Description"></p>
+                    <p class="card-text" data-bind="text: Price"></p>
                     <p data-bind="visible: $root.Authenticated">
                         <button class="btn btn-primary" role="button" data-bind="click: $root.AddProductToCart">Add item</button>
                     </p>
